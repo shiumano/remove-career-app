@@ -3,12 +3,12 @@
 pkgs=`adb shell pm list package |
       sed -e "s/package://g"`  #メモリが吹き飛ぶほどアプリが入ってるなら訴訟モンだよ
 carrier_pkgs=`echo $pkg |
-              grep -e 'docomo'
-                   -e 'ntt'
-                   -e 'auone'
-                   -e 'rakuten'
-                   -e 'kddi'
-                   -e 'softbank'`
+              grep -e 'docomo' \
+                   -e 'ntt' \
+                   -e 'auone' \
+                   -e 'rakuten' \
+                   -e 'kddi' \
+                   -e 'softbank'` \
 
 echo $carrier_pkgs
 
