@@ -2,7 +2,8 @@
 
 pkgs=`adb shell pm list package |
       sed -e "s/package://g"`  #メモリが吹き飛ぶほどアプリが入ってるなら訴訟モンだよ
-carrier_pkgs=`echo $pkg |
+
+carrier_pkgs=`echo "$pkgs" |
               grep -e 'docomo' \
                    -e 'ntt' \
                    -e 'auone' \
@@ -10,17 +11,18 @@ carrier_pkgs=`echo $pkg |
                    -e 'kddi' \
                    -e 'softbank'` \
 
-echo $carrier_pkgs
+echo "$carrier_pkgs"
 
 echo -n "以上のアプリが消去されます [Y/n]: "
 read ANS
 
 case $ANS in
   "" | [Yy]* )
-    echo $pkgs |\
+    echo "$carrier_pkgs" |\
     while read pkg
     do
-      adb shell pm uninstall --user 0 $pkg
+      echo $pkg
+      adb uninstall --user 0 $pkg
     done
     echo "アプリの消去を実行しました"
     ;;
