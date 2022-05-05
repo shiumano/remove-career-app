@@ -55,12 +55,12 @@ if type "adb" > /dev/null 2>&1; then
     pkgs=`adb shell pm list package |
           sed -e "s/package://g"`
     $carrier_pkgs=`echo $pkgs |
-                   grep -g 'docomo' \
-                        -g 'ntt' \
-                        -g 'auone' \
-                        -g 'rakuten' \
-                        -g 'kddi' \
-                        -g 'softbank'`
+                   grep -e 'docomo' \
+                        -e 'ntt' \
+                        -e 'auone' \
+                        -e 'rakuten' \
+                        -e 'kddi' \
+                        -e 'softbank'`
     echo $carrier_pkgs
     echo -n "以上のアプリが消去されます [Y/n]: "
     read ANS
@@ -76,7 +76,6 @@ if type "adb" > /dev/null 2>&1; then
         echo "アプリの消去を実行しました"
         ;;
       * )
-        rm rm.sh pkg.txt
         echo "処理を中止しました。"
         ;;
     esac
