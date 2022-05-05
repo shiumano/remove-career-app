@@ -54,25 +54,25 @@ if type "adb" > /dev/null 2>&1; then
   if [ $? -eq 0 ]; then
     pkgs=`adb shell pm list package |
           sed -e "s/package://g"`
-    $carrier_pkgs=`echo $pkgs |
-                   grep -e 'docomo' \
-                        -e 'ntt' \
-                        -e 'auone' \
-                        -e 'rakuten' \
-                        -e 'kddi' \
-                        -e 'softbank'`
-    echo $carrier_pkgs
+    carrier_pkgs=`echo "$pkgs" |
+                  grep -e 'docomo' \
+                       -e 'ntt' \
+                       -e 'auone' \
+                       -e 'rakuten' \
+                       -e 'kddi' \
+                       -e 'softbank'`
+    echo "$carrier_pkgs"
     echo -n "以上のアプリが消去されます [Y/n]: "
     read ANS
     case $ANS in
       "" | [Yy]* )
-        echo $carrier_pkgs
+        echo "$carrier_pkgs" |\
         while read pkg
         do
           echo "$pkg を削除中"
           adb shell pm uninstall --user 0 $pkg
         done |
-        progressbar $((`wc -l $pkg`*2))
+        progressbar $((`wc -l "$carrier_pkgs"`*2))
         echo "アプリの消去を実行しました"
         ;;
       * )
