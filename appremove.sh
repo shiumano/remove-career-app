@@ -72,7 +72,7 @@ if type "adb" > /dev/null 2>&1; then
           echo "$pkg を削除中"
           adb shell pm uninstall --user 0 $pkg
         done |
-        progressbar $((`wc -l "$carrier_pkgs"`*2))
+        progressbar $((`echo "$carrier_pkgs" | wc -l`*2))
         echo "アプリの消去を実行しました"
         ;;
       * )
